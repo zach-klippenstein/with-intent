@@ -1,0 +1,161 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp"
+    android:fillViewport="true"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <AutoCompleteTextView
+            android:id="@+id/action_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/action_hint"
+            android:imeOptions="actionNext|flagNoExtractUi"
+            android:inputType="text|textNoSuggestions" >
+
+            <requestFocus />
+        </AutoCompleteTextView>
+
+        <TableLayout
+		    android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="1"
+            android:stretchColumns="1">
+            
+		    <TableRow>
+
+		        <TextView
+		            android:id="@+id/data_label"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:labelFor="@+id/data_text"
+		            android:text="@string/data_label" />
+		
+		        <EditText
+		            android:id="@id/data_text"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+                    android:hint="@string/data_hint"
+		            android:imeOptions="actionNext|flagNoExtractUi"
+		            android:inputType="textUri" />
+
+		    </TableRow>
+		
+		    <TableRow>
+
+		        <TextView
+		            android:id="@+id/category_label"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:labelFor="@+id/category_text"
+		            android:text="@string/category_label" />
+		
+		        <!--
+		          Anchor the dropdown to the label, so it is aligned with the far left of the screen.
+		        -->
+		        <AutoCompleteTextView
+		            android:id="@id/category_text"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+                    android:hint="@string/category_hint"
+                    android:dropDownAnchor="@id/category_label"
+                    android:dropDownWidth="match_parent"
+		            android:imeOptions="actionNext|flagNoExtractUi"
+		            android:inputType="textNoSuggestions" />
+
+		    </TableRow>
+		
+		    <TableRow>
+
+		        <TextView
+		            android:id="@+id/mime_type_label"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:labelFor="@+id/mime_type_text"
+		            android:text="@string/mime_type_label" />
+		        
+		        <AutoCompleteTextView
+		            android:id="@id/mime_type_text"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+								android:hint="@string/type_hint"
+		            android:imeOptions="actionDone|flagNoExtractUi"
+		            android:inputType="textNoSuggestions" />
+
+		    </TableRow>
+		</TableLayout>
+        
+        <TextView style="@style/SectionHeaderText"
+            android:text="@string/launch_header" />
+        <View style="@style/SectionHeaderBorder" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center" >
+			
+	        <Spinner
+	            android:id="@+id/action_spinner"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            tools:listitem="@android:layout/simple_spinner_dropdown_item" />
+            
+            <ImageButton
+                android:id="@+id/resolve_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:src="@drawable/ic_resolve"
+                android:contentDescription="@string/resolve_button"
+                android:onClick="onResolveButtonClick"
+                android:longClickable="true" />
+	        
+	        <ImageButton
+                android:id="@+id/launch_button"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0"
+	            android:src="@drawable/ic_launch"
+	            android:contentDescription="@string/launch_button"
+	            android:onClick="onLaunchButtonClick"
+                android:longClickable="true" />
+
+        </LinearLayout>
+        
+        <!-- Allows changing the visibility of the header with one call -->
+        <LinearLayout
+            android:id="@+id/resolved_to_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+	        <TextView 
+	            style="@style/SectionHeaderText"
+	            android:text="@string/resolved_to_header" />
+	        <View style="@style/SectionHeaderBorder" />
+        </LinearLayout>
+
+        <com.zachklipp.intentsendertool.ResolveInfoView
+            android:id="@+id/resolve_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        
+        <!-- Placeholder if nothing found to handle the intent -->
+        <TextView
+            android:id="@+id/no_results_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_resolve_results"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>

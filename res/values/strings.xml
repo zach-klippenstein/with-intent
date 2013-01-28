@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">With Intent</string>
+    <string name="menu_settings">Settings</string>
+    <string name="action_hint">android.intent.action.VIEW</string>
+    <string name="type_label">Type:</string>
+    <string name="data_label">Data URI:</string>
+    <string name="category_label">Category:</string>
+    <string name="mime_type_label">MIME type:</string>
+    <string name="resolved_label">Activity:</string>
+    <string name="launch_button">Launch</string>
+    <string name="launch_header">Resolve &amp; Launch</string>
+    <string name="resolve_button">Resolve</string>
+    <string name="resolved_icon_description">Launch %1$s %2$s</string>
+    <string name="activity">activity</string>
+    <string name="service">service</string>
+    <string name="copy_name_description">Copy name</string>
+    <string name="resolved_name_label">name</string>
+    <string name="copied_name_toast">Copied \'%1$s\' to clipboard.</string>
+    <string name="data_hint">content://contacts/people/1</string>
+    <string name="category_hint">android.intent.category.DEFAULT</string>
+    <string name="type_hint">vnd.android.cursor.item/phone</string>
+    <string name="activity_not_found">No activity found to handle intent.</string>
+    <string name="resolved_to_header">Resolved to</string>
+    <string name="all_results_header">All Results</string>
+    <string name="no_resolve_results">No matching component found.</string>
+
+</resources>

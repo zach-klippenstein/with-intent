@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="ContentDescription">
+        <!-- Set programmatically -->
+        <ignore path="res/layout/view_resolve_info.xml" />
+    </issue>
+    <issue id="HardcodedText">
+        <!-- Used for visualizing in designer -->
+        <ignore path="res/layout/view_resolve_info.xml" />
+    </issue>
+</lint>
