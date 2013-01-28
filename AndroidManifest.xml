@@ -9,7 +9,7 @@
         android:targetSdkVersion="17" />
     
     <uses-feature
-        android:name="touchscreen"
+        android:name="android.hardware.touchscreen"
         android:required="false" />
 
     <application
