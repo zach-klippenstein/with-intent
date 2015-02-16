@@ -7,8 +7,7 @@
     <TextView
         android:text="@string/all_results_header"
         style="@style/SectionHeaderText" />
-    <View style="@style/SectionHeaderBorder" />
-    
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

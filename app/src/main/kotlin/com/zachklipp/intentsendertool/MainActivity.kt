@@ -2,7 +2,6 @@ package com.zachklipp.intentsendertool
 
 import android.net.Uri
 import android.os.Bundle
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.view.View
@@ -13,8 +12,9 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import butterknife.bindView
 import kotlin.properties.Delegates
+import android.app.Activity
+import butterknife.bindView
 
 public class MainActivity : Activity() {
 
@@ -30,7 +30,7 @@ public class MainActivity : Activity() {
   private val mNoResultsText: TextView by bindView(R.id.no_results_text)
 
   private val mLaunchAdapter: ArrayAdapter<LaunchAction> by Delegates.lazy() {
-    ArrayAdapter(this, android.R.layout.simple_spinner_item, LaunchAction.values())
+    ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, LaunchAction.values())
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,3 +133,4 @@ public class MainActivity : Activity() {
     }
   }
 }
+

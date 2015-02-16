@@ -51,7 +51,9 @@ fun String.normalizeMimeType(): String {
 }
 
 val ResolveInfo.componentInfo: ComponentInfo
-  get() = array(activityInfo, serviceInfo, providerInfo).filterNotNull().single() as ComponentInfo
+  get() = array(activityInfo, serviceInfo /*, providerInfo */)
+      .filterNotNull()
+      .single() as ComponentInfo
 
 /**
  * Create a new ClipData holding data of the type MIMETYPE_TEXT_PLAIN and post it on the clipboard.

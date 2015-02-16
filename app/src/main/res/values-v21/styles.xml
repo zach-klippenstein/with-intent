@@ -1,0 +1,3 @@
+<resources>
+    <style name="Button" parent="@android:style/Widget.DeviceDefault.Button.Borderless.Small" />
+</resources>

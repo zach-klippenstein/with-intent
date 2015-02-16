@@ -3,12 +3,13 @@
 
     <string name="app_name">With Intent</string>
     <string name="menu_settings">Settings</string>
+    <string name="action_label">Action</string>
     <string name="action_hint">android.intent.action.VIEW</string>
-    <string name="type_label">Type:</string>
-    <string name="data_label">Data URI:</string>
-    <string name="category_label">Category:</string>
-    <string name="mime_type_label">MIME type:</string>
-    <string name="resolved_label">Activity:</string>
+    <string name="type_label">Type</string>
+    <string name="data_label">Data URI</string>
+    <string name="category_label">Category</string>
+    <string name="mime_type_label">MIME type</string>
+    <string name="resolved_label">Activity</string>
     <string name="launch_button">Launch</string>
     <string name="launch_header">Resolve &amp; Launch</string>
     <string name="resolve_button">Resolve</string>

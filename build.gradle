@@ -22,6 +22,8 @@ allprojects {
 }
 
 ext {
-    kotlinVersion = '0.10.195'
     androidSupportVersion = '21.0.0'
+    appCompatVersion = '21.0.+'
+    kotlinVersion = '0.10.195'
+    kotterknifeVersion = '0.1.0-SNAPSHOT'
 }
