@@ -1,16 +1,14 @@
 package com.zachklipp.intentsendertool
 
 import android.content.pm.ResolveInfo
-import android.os.Parcelable
 import android.os.Parcel
-import kotlin.reflect.KMemberProperty
-import java.util.ArrayList
+import android.os.Parcelable
 
-public data class IntentTargets (
+public data class IntentTargets(
     public val primaryResult: ResolveInfo? = null,
     public val otherResults: List<ResolveInfo>? = null) : Parcelable {
 
-  {
+  init {
     require(primaryResult != null || otherResults != null)
   }
 

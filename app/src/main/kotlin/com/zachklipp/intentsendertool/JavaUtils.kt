@@ -2,8 +2,7 @@ package com.zachklipp.intentsendertool
 
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
-import java.lang.reflect.Modifier.isPublic
-import java.lang.reflect.Modifier.isStatic
+import kotlin.text.Regex
 
 
 /**
@@ -11,20 +10,20 @@ import java.lang.reflect.Modifier.isStatic
  */
 fun Class<*>.getValuesOfStaticStringFieldsMatching(pattern: String): Collection<String> =
     getConstants<String>()
-        .filter { it.getName().matches(pattern) }
+        .filter { it.name.matches(Regex(pattern)) }
         .map { it.getOrNull(null) as String }
         .filterNotNull()
 
 /** Returns all the constants of type T. */
-inline fun Class<*>.getConstants<reified T>() =
-    getFields().filter { it.isConstant() && it.isA<T>() }
+inline fun <reified T : Any> Class<*>.getConstants() =
+    fields.filter { it.isConstant() && it.isA<T>() }
 
 /** Returns true if the field is public, static, and final. */
-fun Field.isConstant() = getModifiers().matchesAll(
+fun Field.isConstant() = modifiers.matchesAll(
     Modifier::isPublic, Modifier::isStatic, Modifier::isFinal)
 
 /** Returns true if the field's type is T. */
-inline fun Field.isA<reified T>() = getType() == javaClass<T>()
+inline fun <reified T : Any> Field.isA() = type == T::class.java
 
 /** Like {@link Field#get(Any)} but returns null if an exception is thrown. */
 fun Field.getOrNull(target: Any?) = try {

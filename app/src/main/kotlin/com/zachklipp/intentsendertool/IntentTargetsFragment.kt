@@ -15,7 +15,7 @@ public class IntentTargetsFragment : ListFragment() {
 
   override fun onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
-    mResults = getArguments()?.getParcelable<Parcelable>(KEY_RESULTS) as IntentTargets
+    mResults = arguments?.getParcelable<Parcelable>(KEY_RESULTS) as IntentTargets
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -25,8 +25,8 @@ public class IntentTargetsFragment : ListFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
-    mAdapter = ResolveInfoAdapter(getActivity())
-    setListAdapter(mAdapter)
+    mAdapter = ResolveInfoAdapter(activity)
+    listAdapter = mAdapter
 
     // If results were changed after creation, we should load those instead of what we
     // got as arguments.
@@ -49,7 +49,7 @@ public class IntentTargetsFragment : ListFragment() {
     }
   }
 
-  class object {
+  companion object {
     public val KEY_RESULTS: String = "r"
   }
 }

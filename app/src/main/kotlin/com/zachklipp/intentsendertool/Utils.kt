@@ -1,21 +1,16 @@
 package com.zachklipp.intentsendertool
 
-import java.util.Locale
-
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ComponentInfo
+import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
+import android.support.annotation.StringRes
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import java.lang.reflect.Modifier
-import java.lang.reflect.Modifier.isPublic
-import java.lang.reflect.Modifier.isStatic
-import java.lang.reflect.Field
-import android.content.pm.ResolveInfo
-import android.content.pm.ComponentInfo
 import android.widget.Toast
-import android.support.annotation.StringRes
+import java.util.Locale
 
 
 fun String.asNormalizedUri(): Uri = normalizeUri(Uri.parse(this))
@@ -29,7 +24,7 @@ fun normalizeUri(uri: Uri): Uri {
   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
     normalized = uri.normalizeScheme()
   } else {
-    normalized = Uri.fromParts(uri.getScheme().toLowerCase(Locale.US), uri.getSchemeSpecificPart(), uri.getFragment())
+    normalized = Uri.fromParts(uri.scheme.toLowerCase(Locale.US), uri.schemeSpecificPart, uri.fragment)
   }
 
   return normalized
@@ -51,14 +46,14 @@ fun String.normalizeMimeType(): String {
 }
 
 val ResolveInfo.componentInfo: ComponentInfo
-  get() = array(activityInfo, serviceInfo /*, providerInfo */)
+  get() = arrayOf(activityInfo, serviceInfo /*, providerInfo */)
       .filterNotNull()
       .single() as ComponentInfo
 
 /**
  * Create a new ClipData holding data of the type MIMETYPE_TEXT_PLAIN and post it on the clipboard.
  */
-fun View.copyText(label: String, text: String) = getContext().copyText(label, text)
+fun View.copyText(label: String, text: String) = context.copyText(label, text)
 
 /**
  * Create a new ClipData holding data of the type MIMETYPE_TEXT_PLAIN and post it on the clipboard.
@@ -67,18 +62,18 @@ fun Context.copyText(label: String, text: String) {
   val clipboardService = getSystemService(Context.CLIPBOARD_SERVICE)
   val clipboard = clipboardService as android.content.ClipboardManager
   val clip = android.content.ClipData.newPlainText(label, text)
-  clipboard.setPrimaryClip(clip)
+  clipboard.primaryClip = clip
 }
 
 fun View.hideSoftKeyboardFromView() {
-  val imm = getContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-  imm.hideSoftInputFromWindow(getWindowToken(), 0)
+  val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+  imm.hideSoftInputFromWindow(windowToken, 0)
 }
 
-fun View.getString(StringRes resId: Int, vararg formatArgs: Any?) =
-    getResources().getString(resId, *formatArgs)
+fun View.getString(@StringRes resId: Int, vararg formatArgs: Any?) =
+    resources.getString(resId, *formatArgs)
 
-fun View.showToast(text: CharSequence, duration: Int) = getContext().showToast(text, duration)
+fun View.showToast(text: CharSequence, duration: Int) = context.showToast(text, duration)
 
 fun Context.showToast(text: CharSequence, duration: Int) =
-  Toast.makeText(this, text, duration).show()
+    Toast.makeText(this, text, duration).show()
