@@ -1,29 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:1.0.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:0.10.195"
-    }
-}
-
-allprojects {
-    repositories {
-        jcenter()
-
-        // For Kotterknife
-        maven {
-            url('https://oss.sonatype.org/content/repositories/snapshots')
-        }
-    }
-}
-
 ext {
-    androidSupportVersion = '21.0.0'
-    appCompatVersion = '21.0.+'
-    kotlinVersion = '0.10.195'
-    kotterknifeVersion = '0.1.0-SNAPSHOT'
+    deps = [
+        androidSupport: '23.1.1',
+        appCompat: '23.1.1',
+        kotlin: '1.0.0-beta-3595',
+        kotterknife: '0.1.0-SNAPSHOT'
+    ]
 }

@@ -1,9 +1,10 @@
 package com.zachklipp.intentsendertool
 
-import android.net.Uri
-import android.os.Bundle
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -12,8 +13,6 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import kotlin.properties.Delegates
-import android.app.Activity
 import butterknife.bindView
 
 public class MainActivity : Activity() {
@@ -29,7 +28,7 @@ public class MainActivity : Activity() {
   private val mResolveView: IntentTargetView by bindView(R.id.resolve_view)
   private val mNoResultsText: TextView by bindView(R.id.no_results_text)
 
-  private val mLaunchAdapter: ArrayAdapter<LaunchAction> by Delegates.lazy() {
+  private val mLaunchAdapter: ArrayAdapter<LaunchAction> by lazy {
     ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, LaunchAction.values())
   }
 
@@ -38,10 +37,10 @@ public class MainActivity : Activity() {
     setContentView(R.layout.activity_main)
 
     mLaunchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    mActionSpinner.setAdapter(mLaunchAdapter)
+    mActionSpinner.adapter = mLaunchAdapter
 
-    val buttonLongClickListener = {(v: View) ->
-      showToast(v.getContentDescription(), Toast.LENGTH_SHORT)
+    val buttonLongClickListener = { v: View ->
+      showToast(v.contentDescription, Toast.LENGTH_SHORT)
       true
     }
 
@@ -49,10 +48,10 @@ public class MainActivity : Activity() {
     mLaunchButton.setOnLongClickListener(buttonLongClickListener)
 
     mActionText.setAdapter<ArrayAdapter<String>>(ArrayAdapter(this,
-        android.R.layout.simple_spinner_dropdown_item, androidIntentActions.copyToArray()))
+        android.R.layout.simple_spinner_dropdown_item, androidIntentActions.toTypedArray()))
 
     mCategoryText.setAdapter<ArrayAdapter<String>>(ArrayAdapter(this,
-        android.R.layout.simple_dropdown_item_1line, androidIntentCategories.copyToArray()))
+        android.R.layout.simple_dropdown_item_1line, androidIntentCategories.toTypedArray()))
 
     mActionText.setText(Intent.ACTION_VIEW)
     mActionText.selectAll()
@@ -62,16 +61,16 @@ public class MainActivity : Activity() {
     val action = getSelectedLaunchAction()
     val intent = buildIntent()
 
-    displayResolveResults(action.resolve(intent, getPackageManager()))
-    getCurrentFocus().hideSoftKeyboardFromView()
+    displayResolveResults(action.resolve(intent, packageManager))
+    currentFocus.hideSoftKeyboardFromView()
   }
 
   public fun onLaunchButtonClick(view: View) {
     val action = getSelectedLaunchAction()
     val intent = buildIntent()
 
-    displayResolveResults(action.resolve(intent, getPackageManager()))
-    getCurrentFocus().hideSoftKeyboardFromView()
+    displayResolveResults(action.resolve(intent, packageManager))
+    currentFocus.hideSoftKeyboardFromView()
 
     try {
       action.launch(intent, this)
@@ -82,30 +81,30 @@ public class MainActivity : Activity() {
   }
 
   private fun getSelectedLaunchAction(): LaunchAction {
-    return mLaunchAdapter.getItem(mActionSpinner.getSelectedItemPosition())
+    return mLaunchAdapter.getItem(mActionSpinner.selectedItemPosition)
   }
 
   private fun buildIntent(): Intent {
-    val data = mDataText.getText().toString()
-    val category = mCategoryText.getText().toString()
-    var mimeType: String = mTypeText.getText().toString()
+    val data = mDataText.text.toString()
+    val category = mCategoryText.text.toString()
+    var mimeType: String = mTypeText.text.toString()
     var setData = false
     var setType = false
     val intent = Intent()
     var dataUri: Uri? = null
 
-    intent.setAction(mActionText!!.getText().toString())
+    intent.setAction(mActionText.text.toString())
 
-    if (data != null && data.length() > 0) {
+    if (data.length > 0) {
       dataUri = data.asNormalizedUri()
       setData = true
     }
 
-    if (category != null && category.length() > 0) {
+    if (category.length > 0) {
       intent.addCategory(category)
     }
 
-    if (mimeType != null && mimeType.length() > 0) {
+    if (mimeType.length > 0) {
       mimeType = mimeType.normalizeMimeType()
       setType = true
     }
@@ -122,14 +121,14 @@ public class MainActivity : Activity() {
   }
 
   private fun displayResolveResults(results: IntentTargets) {
-    mResolvedHeader.setVisibility(View.VISIBLE)
+    mResolvedHeader.visibility = View.VISIBLE
 
     if (results.primaryResult != null) {
-      mNoResultsText.setVisibility(View.GONE)
+      mNoResultsText.visibility = View.GONE
       mResolveView.setResolveInfo(results.primaryResult)
     } else {
-      mResolveView.setVisibility(View.GONE)
-      mNoResultsText.setVisibility(View.VISIBLE)
+      mResolveView.visibility = View.GONE
+      mNoResultsText.visibility = View.VISIBLE
     }
   }
 }

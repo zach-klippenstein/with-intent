@@ -1,15 +1,15 @@
 package com.zachklipp.intentsendertool
 
 import android.content.Context
-import android.widget.BaseAdapter
 import android.content.pm.ResolveInfo
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 
 class ResolveInfoAdapter(private val mContext: Context) : BaseAdapter() {
   private var mInfos: List<ResolveInfo>? = null
 
-  {
+  init {
     setInfos(null)
   }
 
@@ -24,11 +24,11 @@ class ResolveInfoAdapter(private val mContext: Context) : BaseAdapter() {
   }
 
   override fun getCount(): Int {
-    return if (mInfos != null) mInfos!!.size() else 0
+    return if (mInfos != null) mInfos!!.size else 0
   }
 
   override fun getItem(pos: Int): Any? {
-    return if (mInfos != null) mInfos!!.get(pos) else null
+    return if (mInfos != null) mInfos!![pos] else null
   }
 
   override fun getItemId(pos: Int): Long {
@@ -38,7 +38,7 @@ class ResolveInfoAdapter(private val mContext: Context) : BaseAdapter() {
   override fun getView(pos: Int, convertView: View, parent: ViewGroup): View {
     val view = convertView as IntentTargetView ?: IntentTargetView(mContext)
 
-    view.setResolveInfo(mInfos!!.get(pos))
+    view.setResolveInfo(mInfos!![pos])
 
     return view
   }

@@ -1,8 +1,9 @@
 package com.zachklipp.intentsendertool
 
 import android.content.Context
-import android.content.pm.PackageManager
+import android.content.pm.ActivityInfo
 import android.content.pm.ResolveInfo
+import android.content.pm.ServiceInfo
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import android.content.pm.ActivityInfo
-import android.content.pm.ServiceInfo
 import butterknife.bindView
-import android.view.ViewGroup
 
 public class IntentTargetView(context: Context, attrs: AttributeSet? = null)
 : FrameLayout(context, attrs) {
@@ -24,7 +22,7 @@ public class IntentTargetView(context: Context, attrs: AttributeSet? = null)
 
   private var mInfo: ResolveInfo? = null
 
-  {
+  init {
     LayoutInflater.from(getContext()).inflate(R.layout.view_resolve_info, this)
 
     setOnClickListener { onCopyNameClick() }
@@ -39,18 +37,18 @@ public class IntentTargetView(context: Context, attrs: AttributeSet? = null)
 
   private fun updateView(info: ResolveInfo?) {
     if (info != null) {
-      mResolvedIcon.setImageDrawable(info.loadIcon(getPackageManager()))
-      mResolvedIcon.setContentDescription(getString(
-          R.string.resolved_icon_description, getComponentDescription(), info.componentInfo.name))
-      mResolvedLabel.setText(info.loadLabel(getPackageManager()))
-      mResolvedName.setText(info.componentInfo.name)
-      setVisibility(View.VISIBLE)
+      mResolvedIcon.setImageDrawable(info.loadIcon(context.packageManager))
+      mResolvedIcon.contentDescription = getString(
+          R.string.resolved_icon_description, getComponentDescription(), info.componentInfo.name)
+      mResolvedLabel.text = info.loadLabel(context.packageManager)
+      mResolvedName.text = info.componentInfo.name
+      visibility = View.VISIBLE
     } else {
-      setVisibility(View.GONE)
+      visibility = View.GONE
       mResolvedIcon.setImageDrawable(null)
-      mResolvedIcon.setContentDescription(null)
-      mResolvedLabel.setText(null)
-      mResolvedName.setText(null)
+      mResolvedIcon.contentDescription = null
+      mResolvedLabel.text = null
+      mResolvedName.text = null
     }
   }
 
@@ -58,7 +56,7 @@ public class IntentTargetView(context: Context, attrs: AttributeSet? = null)
     is ActivityInfo -> getString(R.string.activity)
     is ServiceInfo -> getString(R.string.service)
     null -> null
-    else -> javaClass.getName()
+    else -> javaClass.name
   }
 
   private fun onCopyNameClick() {
@@ -68,9 +66,5 @@ public class IntentTargetView(context: Context, attrs: AttributeSet? = null)
       copyText(getString(R.string.resolved_name_label), name)
       showToast(getString(R.string.copied_name_toast, name), Toast.LENGTH_SHORT)
     }
-  }
-
-  private fun getPackageManager(): PackageManager {
-    return getContext().getPackageManager()
   }
 }

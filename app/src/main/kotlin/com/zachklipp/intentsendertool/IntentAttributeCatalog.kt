@@ -5,10 +5,10 @@ import java.util.SortedSet
 import kotlin.properties.Delegates
 import java.lang.reflect.Field
 
-val androidIntentActions: SortedSet<String> by Delegates.lazy {
-  javaClass<Intent>().getValuesOfStaticStringFieldsMatching("^ACTION_.*").toSortedSet()
+val androidIntentActions: SortedSet<String> by lazy {
+  Intent::class.java.getValuesOfStaticStringFieldsMatching("^ACTION_.*").toSortedSet()
 }
 
-val androidIntentCategories: SortedSet<String> by Delegates.lazy {
-  javaClass<Intent>().getValuesOfStaticStringFieldsMatching("^CATEGORY_.*").toSortedSet()
+val androidIntentCategories: SortedSet<String> by lazy {
+  Intent::class.java.getValuesOfStaticStringFieldsMatching("^CATEGORY_.*").toSortedSet()
 }
