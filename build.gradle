@@ -4,7 +4,7 @@ ext {
     deps = [
         androidSupport: '23.1.1',
         appCompat: '23.1.1',
-        kotlin: '1.0.0-beta-3595',
+        kotlin: '1.0.0-rc-1036',
         kotterknife: '0.1.0-SNAPSHOT'
     ]
 }
