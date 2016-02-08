@@ -4,9 +4,9 @@ import android.content.pm.ResolveInfo
 import android.os.Parcel
 import android.os.Parcelable
 
-public data class IntentTargets(
-    public val primaryResult: ResolveInfo? = null,
-    public val otherResults: List<ResolveInfo>? = null) : Parcelable {
+data class IntentTargets(
+    val primaryResult: ResolveInfo? = null,
+    val otherResults: List<ResolveInfo>? = null) : Parcelable {
 
   init {
     require(primaryResult != null || otherResults != null)
@@ -19,11 +19,11 @@ public data class IntentTargets(
     writeTypedList(otherResults)
   }
 
-  public object CREATOR : Parcelable.Creator<IntentTargets> {
+  object CREATOR : Parcelable.Creator<IntentTargets> {
     override fun createFromParcel(source: Parcel): IntentTargets? =
         IntentTargets(
             primaryResult = source.readParcelable(),
-            otherResults = source.readTypedList<IntentTargets, ResolveInfo>()
+            otherResults = source.readTypedList<ResolveInfo>()
         )
 
     override fun newArray(size: Int): Array<out IntentTargets?>? = arrayOfNulls(size)

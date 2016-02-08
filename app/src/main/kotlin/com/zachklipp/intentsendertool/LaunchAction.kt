@@ -7,16 +7,16 @@ import android.content.pm.PackageManager
 /**
  * A way to launch an intent. Map to the {@code context.start*} methods.
  */
-public enum class LaunchAction(val launchName: String) {
+enum class LaunchAction(val launchName: String) {
 
   ACTIVITY("Activity") {
 
-    public override fun resolve(intent: Intent, packageManager: PackageManager): IntentTargets {
+    override fun resolve(intent: Intent, packageManager: PackageManager): IntentTargets {
       return IntentTargets(packageManager.resolveActivity(intent, 0),
           packageManager.queryIntentActivities(intent, 0))
     }
 
-    public override fun launch(intent: Intent, context: Context) {
+    override fun launch(intent: Intent, context: Context) {
       context.startActivity(intent)
     }
   },
@@ -45,10 +45,14 @@ public enum class LaunchAction(val launchName: String) {
 
   };
 
-  public abstract fun resolve(intent: Intent, packageManager: PackageManager): IntentTargets
-  public abstract fun launch(intent: Intent, context: Context)
+  abstract fun resolve(intent: Intent, packageManager: PackageManager): IntentTargets
+  abstract fun launch(intent: Intent, context: Context)
 
   override fun toString(): String {
     return launchName
+  }
+
+  companion object {
+    fun getLaunchTypeNames(): List<String> = LaunchAction.values().map { it.launchName }
   }
 }

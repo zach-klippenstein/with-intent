@@ -15,7 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import butterknife.bindView
 
-public class MainActivity : Activity() {
+class MainActivity : Activity() {
 
   private val mActionText: AutoCompleteTextView by bindView(R.id.action_text)
   private val mDataText: EditText by bindView(R.id.data_text)
@@ -57,7 +57,7 @@ public class MainActivity : Activity() {
     mActionText.selectAll()
   }
 
-  public fun onResolveButtonClick(view: View) {
+  fun onResolveButtonClick(view: View) {
     val action = getSelectedLaunchAction()
     val intent = buildIntent()
 
@@ -65,7 +65,7 @@ public class MainActivity : Activity() {
     currentFocus.hideSoftKeyboardFromView()
   }
 
-  public fun onLaunchButtonClick(view: View) {
+  fun onLaunchButtonClick(view: View) {
     val action = getSelectedLaunchAction()
     val intent = buildIntent()
 

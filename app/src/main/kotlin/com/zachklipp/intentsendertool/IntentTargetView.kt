@@ -13,7 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import butterknife.bindView
 
-public class IntentTargetView(context: Context, attrs: AttributeSet? = null)
+class IntentTargetView(context: Context, attrs: AttributeSet? = null)
 : FrameLayout(context, attrs) {
 
   private val mResolvedIcon: ImageView by bindView(R.id.resolved_icon)
@@ -30,7 +30,7 @@ public class IntentTargetView(context: Context, attrs: AttributeSet? = null)
     setResolveInfo(null)
   }
 
-  public fun setResolveInfo(info: ResolveInfo?) {
+  fun setResolveInfo(info: ResolveInfo?) {
     mInfo = info
     updateView(info)
   }

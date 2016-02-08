@@ -1,19 +1,18 @@
 package com.zachklipp.intentsendertool
 
-
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.app.ListFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.os.Parcelable
 
-public class IntentTargetsFragment : ListFragment() {
+class IntentTargetsFragment : ListFragment() {
 
   private var mResults: IntentTargets? = null
   private var mAdapter: ResolveInfoAdapter? = null
 
-  override fun onCreate(savedInstanceState: Bundle) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     mResults = arguments?.getParcelable<Parcelable>(KEY_RESULTS) as IntentTargets
   }
@@ -41,7 +40,7 @@ public class IntentTargetsFragment : ListFragment() {
     outState.putParcelable(KEY_RESULTS, mResults)
   }
 
-  public fun setResults(results: IntentTargets?) {
+  fun setResults(results: IntentTargets?) {
     mResults = results
 
     if (mAdapter != null) {
@@ -50,6 +49,6 @@ public class IntentTargetsFragment : ListFragment() {
   }
 
   companion object {
-    public val KEY_RESULTS: String = "r"
+    val KEY_RESULTS: String = "r"
   }
 }

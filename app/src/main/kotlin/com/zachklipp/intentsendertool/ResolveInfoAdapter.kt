@@ -13,7 +13,7 @@ class ResolveInfoAdapter(private val mContext: Context) : BaseAdapter() {
     setInfos(null)
   }
 
-  public fun setInfos(infos: List<ResolveInfo>?) {
+  fun setInfos(infos: List<ResolveInfo>?) {
     mInfos = infos
 
     if (mInfos != null) {
@@ -36,7 +36,7 @@ class ResolveInfoAdapter(private val mContext: Context) : BaseAdapter() {
   }
 
   override fun getView(pos: Int, convertView: View, parent: ViewGroup): View {
-    val view = convertView as IntentTargetView ?: IntentTargetView(mContext)
+    val view = convertView as IntentTargetView
 
     view.setResolveInfo(mInfos!![pos])
 

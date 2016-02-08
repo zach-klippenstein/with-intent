@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import java.util.Locale
 
-
 fun String.asNormalizedUri(): Uri = normalizeUri(Uri.parse(this))
 
 /**
